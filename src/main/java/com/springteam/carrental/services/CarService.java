@@ -15,6 +15,7 @@ import java.util.Optional;
 public class CarService {
 
     CarRepo carRepo;
+    BranchService branchService;
 
     @Autowired
     public CarService(CarRepo carRepo) {
@@ -27,6 +28,11 @@ public class CarService {
         for (Car car : cars)
             result.add(CarMapper.INSTANCE.carToDto(car));
         return result;
+    }
+
+    public List<CarDTO> getCarsForBranch(String address) {
+        List<CarDTO> cars = branchService.getBranchByAddress(address).getCars();
+        return cars;
     }
 
     public void saveCar(CarDTO carDTO) {

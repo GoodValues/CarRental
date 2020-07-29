@@ -1,4 +1,7 @@
 <%@ taglib prefix="th" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <html>
 <head>
@@ -24,11 +27,11 @@
     <input type="text" name="color" id="color">
     <label for="mileage">Przebieg</label>
     <input type="number" name="mileage" id="mileage">
-    <select name="rentalStatus">
-        <!--/*@thymesVar id="rentalStatus" type="java"*/-->
-        <option th:each="rentalStatus : ${T(com.springteam.carrental.model.dto.RentalStatus).values()}"
-                th:th:value="${rentalStatus}" th:text="${rentalStatus}"></option>
-    </select>
+    <form:select path="statuses" id="statuses">
+        <c:forEach var="status" items="${statuses}">
+            <form:option value="${status}">${status}</form:option>
+        </c:forEach>
+    </form:select>
     <label for="priceForDay">Stawka za dzień</label>
     <input type="number" name="priceForDay" id="priceForDay">
 

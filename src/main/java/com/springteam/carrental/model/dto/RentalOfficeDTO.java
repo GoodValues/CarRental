@@ -11,6 +11,7 @@ import java.util.List;
 @EqualsAndHashCode
 public class RentalOfficeDTO {
 
+    private Long id;
     private String name;
     private String webPage;
     private String address;

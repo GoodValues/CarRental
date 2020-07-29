@@ -7,10 +7,12 @@ import lombok.*;
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode
-public class ClientDTO {
+public class UserDTO {
 
+    private Long id;
     private String firstName;
     private String lastName;
     private String email;
-    private String address;
+    private String password;
+    private String confirmPassword;
 }

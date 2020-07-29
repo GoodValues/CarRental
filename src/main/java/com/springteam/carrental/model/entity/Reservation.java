@@ -19,11 +19,11 @@ public class Reservation {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private Date rentalDate;
+    private LocalDateTime rentalDate;
 
-    @JoinColumn(name = "client_id")
+    @JoinColumn(name = "user_id")
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-    private Client client;
+    private User user;
 
     @OneToOne(cascade = CascadeType.ALL)
     private Car car;

@@ -39,6 +39,11 @@ public class BranchService {
         return branch.map(BranchMapper.INSTANCE::branchToDto).orElse(null);
     }
 
+    public BranchDTO getBranchByAddress(String address) {
+        Optional<Branch> branch = Optional.ofNullable(branchRepo.findByAddress(address));
+        return branch.map(BranchMapper.INSTANCE::branchToDto).orElse(null);
+    }
+
     public void deleteBranchById(Long id) {
         branchRepo.deleteById(id);
     }

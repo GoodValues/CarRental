@@ -7,7 +7,7 @@
 </head>
 <body>
 
-<h1>Lista studentów</h1>
+<h1>Lista samochodów</h1>
 
 <a href="/addCar">Add new car</a>
 <table>

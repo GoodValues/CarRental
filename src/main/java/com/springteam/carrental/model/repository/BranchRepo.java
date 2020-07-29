@@ -4,4 +4,5 @@ import com.springteam.carrental.model.entity.Branch;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface BranchRepo extends JpaRepository<Branch, Long> {
+    Branch findByAddress(String address);
 }

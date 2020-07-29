@@ -11,10 +11,9 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode
 public class RentalDTO {
 
+    private Long id;
     private EmployeeDTO employee;
     private LocalDateTime rentalDate;
     private ReservationDTO reservation;
     private String comment;
-
-
 }

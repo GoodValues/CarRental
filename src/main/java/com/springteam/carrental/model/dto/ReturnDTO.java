@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode
 public class ReturnDTO {
 
+    private Long id;
     private EmployeeDTO employee;
     private LocalDateTime returnDate;
     private ReservationDTO reservation;

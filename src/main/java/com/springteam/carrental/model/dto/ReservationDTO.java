@@ -4,7 +4,6 @@ import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Data
 @AllArgsConstructor
@@ -13,8 +12,9 @@ import java.util.Date;
 @EqualsAndHashCode
 public class ReservationDTO {
 
-    private Date rentalDate;
-    private ClientDTO client;
+    private Long id;
+    private LocalDateTime rentalDate;
+    private UserDTO client;
     private CarDTO car;
     private LocalDateTime dateFrom;
     private LocalDateTime dateTo;
