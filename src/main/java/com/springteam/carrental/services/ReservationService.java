@@ -1,10 +1,8 @@
 package com.springteam.carrental.services;
 
-import com.springteam.carrental.model.dto.CarDTO;
+import com.springteam.carrental.exception.UserNotFoundException;
 import com.springteam.carrental.model.dto.ReservationDTO;
-import com.springteam.carrental.model.entity.Car;
 import com.springteam.carrental.model.entity.Reservation;
-import com.springteam.carrental.model.mappers.CarMapper;
 import com.springteam.carrental.model.mappers.ReservationMapper;
 import com.springteam.carrental.model.repository.ReservationRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,9 +32,10 @@ public class ReservationService {
     }
 
     public List<ReservationDTO> getReservationsForUserByEmail(String email) {
-        List<Reservation> reservations = userService.getUserByEmail(email).getReservations();
-        List<ReservationDTO> reservationDTO = ReservationMapper.INSTANCE.reservationsToDto(reservations);
-        return reservationDTO;
+        List<Reservation> reservations = userService.getUserByEmail(email)
+                .orElseThrow(() -> new UserNotFoundException("User not found: " + email))
+                .getReservations();
+        return ReservationMapper.INSTANCE.reservationsToDto(reservations);
     }
 
     public void saveReservation(ReservationDTO reservationDTO) {

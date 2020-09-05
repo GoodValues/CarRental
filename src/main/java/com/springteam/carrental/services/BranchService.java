@@ -29,9 +29,9 @@ public class BranchService {
         return result;
     }
 
-    public void saveBranch(BranchDTO branchDTO) {
+    public BranchDTO saveBranch(BranchDTO branchDTO) {
         Branch branch = BranchMapper.INSTANCE.dtoToBranch(branchDTO);
-        branchRepo.save(branch);
+        return BranchMapper.INSTANCE.branchToDto(branchRepo.save(branch));
     }
 
     public BranchDTO getBranchById(Long id) {

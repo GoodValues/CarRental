@@ -19,19 +19,22 @@ public class UserValidator implements Validator {
 
 	@Override
 	public void validate(Object target, Errors errors) {
+		if (target instanceof UserDTO) {
+			UserDTO userDTO = (UserDTO) target;
 
-		UserDTO userDTO = (UserDTO) target;
-		
-		validate(ValidatorEnum.USERNAME, userDTO.getFirstName(), "firstName", errors);
-		validate(ValidatorEnum.USERNAME, userDTO.getLastName(), "lastName", errors);
-		validate(ValidatorEnum.PASSWORD, userDTO.getPassword(), "password", errors);
-		validate(ValidatorEnum.EMAIL, userDTO.getEmail(), "email", errors);
-		
-		String password = userDTO.getPassword();
-		String confirmPassword = userDTO.getConfirmPassword();
-		if(!password.equals(confirmPassword)) {
-			
-			errors.rejectValue("password", "err_code", "Passwords must be the same");
+			validate(ValidatorEnum.USERNAME, userDTO.getFirstName(), "firstName", errors);
+			validate(ValidatorEnum.USERNAME, userDTO.getLastName(), "lastName", errors);
+			validate(ValidatorEnum.PASSWORD, userDTO.getPassword(), "password", errors);
+			validate(ValidatorEnum.EMAIL, userDTO.getEmail(), "email", errors);
+
+			String password = userDTO.getPassword();
+			String confirmPassword = userDTO.getConfirmPassword();
+			if (!password.equals(confirmPassword)) {
+
+				errors.rejectValue("password", "err_code", "Passwords must be the same");
+			}
+		} else {
+			errors.reject("Target should be instance of UserDTO");
 		}
 	}
 

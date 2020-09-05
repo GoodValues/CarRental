@@ -1,29 +1,29 @@
 package com.springteam.carrental.services;
 
-import com.springteam.carrental.model.dto.CarDTO;
-import com.springteam.carrental.model.dto.ReservationDTO;
 import com.springteam.carrental.model.dto.UserDTO;
-import com.springteam.carrental.model.entity.Reservation;
+import com.springteam.carrental.model.entity.Role;
+import com.springteam.carrental.model.entity.RoleName;
 import com.springteam.carrental.model.entity.User;
-import com.springteam.carrental.model.mappers.ReservationMapper;
 import com.springteam.carrental.model.mappers.UserMapper;
-import com.springteam.carrental.model.repository.ReservationRepo;
+import com.springteam.carrental.model.repository.RoleRepo;
 import com.springteam.carrental.model.repository.UserRepo;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class UserService {
+    private final UserRepo userRepo;
+    private final RoleRepo roleRepo;
 
-    UserRepo userRepo;
-
-    @Autowired
-    public UserService(UserRepo userRepo) {
+    public UserService(UserRepo userRepo, RoleRepo roleRepo) {
         this.userRepo = userRepo;
+        this.roleRepo = roleRepo;
     }
 
 
@@ -35,13 +35,14 @@ public class UserService {
         return result;
     }
 
-    public User getUserByEmail(String email) {
-        User user = userRepo.findByEmail(email);
-        return user;
+    public Optional<User> getUserByEmail(String email) {
+        return userRepo.findByEmail(email);
     }
 
     public void saveUser(UserDTO userDTO) {
         User user = UserMapper.INSTANCE.dtoToUser(userDTO);
+        user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+        user.setRoles(Set.of(roleRepo.findByName(RoleName.ROLE_USER).get()));
         userRepo.save(user);
     }
 

@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -23,8 +24,9 @@ public class User {
     @Column(unique = true)
     private String email;
     private String password;
-    private String confirmPassword;
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Set<Role> roles;
 
     @OneToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, mappedBy = "user")
     private List<Reservation> reservations;
